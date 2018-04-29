@@ -1,5 +1,7 @@
 export const CREATE_TASK = "CREATE_TASK";
 export const GET_TASKS = "GET_TASKS";
+export const EDIT_TASK = "EDIT_TASK";
+export const UPDATE_TASK = "UPDATE_TASK";
 
 export function createTask(formData) {
     return dispatch => {
@@ -29,4 +31,25 @@ export function getTasks() {
             })
           );
       };
+}
+
+export function editTask(task){
+    //send task to the form
+}
+
+export function updateTask(formData) {
+    return dispatch => {
+        return fetch("/task/update/" + formData.id, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(res => res.json())
+        .then(task => dispatch({
+            type: UPDATE_TASK,
+            payload: task
+        }));
+    }
 }

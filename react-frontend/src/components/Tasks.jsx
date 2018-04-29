@@ -22,6 +22,7 @@ class Housemates extends Component {
               <th>Start Date</th>
               <th>End Date</th>
               <th>Performed By</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +33,18 @@ class Housemates extends Component {
                 <td>{task.startDate}</td>
                 <td>{task.endDate}</td>
                 <td>{task.housemate.name}</td>
+                <td>
+                  <input
+                    type="submit"
+                    value="Edit"
+                    className="btn btn-primary"
+                  />&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input
+                    type="submit"
+                    value="Delete"
+                    className="btn btn-danger"
+                  />
+                </td>
               </tr>
             ))}
           </tbody>

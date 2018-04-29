@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getHousemates } from "../actions/housemateActions";
+import { editHousemate, getHousemates, deleteHousemate } from "../actions/housemateActions";
 
 class Housemates extends Component {
+  constructor(props) {
+    super(props);
+
+    // this.onEditHousemate = this.onEditHousemate.bind(this);
+  }
+
   componentDidMount() {
     this.onGetHousemates();
   }
@@ -20,6 +26,7 @@ class Housemates extends Component {
               <th>ID</th>
               <th>Name</th>
               <th>Created At</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -28,6 +35,24 @@ class Housemates extends Component {
                 <td>{housemate.id}</td>
                 <td>{housemate.name}</td>
                 <td>{housemate.createdAt}</td>
+                <td>
+                  <form onSubmit={this.onEditHousemate}>
+                    <input type="hidden" ref={(input) => this.getId = input} value={housemate.id} />
+                    <input
+                      type="button"
+                      value="Edit"
+                      className="btn btn-primary"
+                      onClick={() => this.props.onEditHousemate(housemate.id)}
+                    />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input
+                      type="button"
+                      value="Delete"
+                      className="btn btn-danger"
+                      onClick={() => this.props.onDeleteHouseMate(housemate.id)}
+                    />
+                  </form>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -44,7 +69,9 @@ const mapStatetoProps = (state, props) => {
 };
 
 const mapActionsToProps = {
-  onGetHousemates: getHousemates
+  onGetHousemates: getHousemates,
+  onEditHousemate: editHousemate,
+  onDeleteHouseMate: deleteHousemate
 };
 
 export default connect(mapStatetoProps, mapActionsToProps)(Housemates);

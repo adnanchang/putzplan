@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { LocalForm, Control } from "react-redux-form";
 import {createHousemate} from "../actions/housemateActions";
 
 class AddHouseMate extends Component {
@@ -10,28 +9,27 @@ class AddHouseMate extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(val) {
-    const housemate = {
-      name: val.name
+  handleSubmit(event) {
+    event.preventDefault();
+    const name = this.getName.value;
+    const data = {
+      name: name
     }
-    this.props.handleSubmit(housemate);
+    this.getName.value = '';
+    this.props.handleSubmit(data);
   }
 
   render() {
     return (
       <div className="col-lg-6">
-        <LocalForm onSubmit={values => this.handleSubmit(values)}>
+        <form onSubmit={this.handleSubmit}>
           <legend>Add Housemate</legend>
           <fieldset className="form-group">
             <label htmlFor="Name">Name</label>
-            <Control.text
-              model=".name"
-              className="form-control"
-              placeholder="Enter Name of House Mate"
-            />
+            <input type="text" placeholder="Enter Housemate Name" ref={(input) => this.getName = input} className="form-control"/>
           </fieldset>
           <input type="submit" value="Add" className="btn btn-primary" />
-        </LocalForm>
+        </form>
       </div>
     );
   }
