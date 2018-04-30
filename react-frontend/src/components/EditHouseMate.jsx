@@ -10,7 +10,6 @@ class EditHouseMate extends Component {
     this.message = null;
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onTodoChange = this.onTodoChange.bind(this);
   }
 
   componentDidUpdate() {
@@ -28,10 +27,6 @@ class EditHouseMate extends Component {
     };
     this.props.handleSubmit(housemate);
     this.getName.value = "";
-  }
-
-  onTodoChange(event) {
-    this.getName.value = event.target.value;
   }
 
   render() {
@@ -53,13 +48,12 @@ class EditHouseMate extends Component {
                 placeholder="Enter Housemate Name"
                 ref={input => (this.getName = input)}
                 className="form-control"
-                onChange={event => this.onTodoChange(event)}
               />
             </fieldset>
             <input type="submit" value="Edit" className="btn btn-primary" />
           </form>
         ) : (
-          <legend> Nothing to Edit </legend>
+          <legend>No Housemate to Edit </legend>
         )}
       </div>
     );

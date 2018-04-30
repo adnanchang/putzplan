@@ -4,6 +4,7 @@ import AddTask from "./components/AddTask";
 import Housemates from "./components/Housemates";
 import Tasks from "./components/Tasks";
 import EditHouseMate from "./components/EditHouseMate";
+import EditTask from "./components/EditTask";
 
 import { connect } from "react-redux";
 
@@ -44,7 +45,8 @@ class App extends Component {
             <div className="col-lg-12">
               <h1 id="forms-edit">Some More Forms</h1>
             </div>
-            <EditHouseMate /> 
+            <EditHouseMate />
+            <EditTask />
           </div>
           <br />
           <hr />

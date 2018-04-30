@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getTasks } from "../actions/taskActions";
+import { getTasks, editTask, deleteTask } from "../actions/taskActions";
 
 class Housemates extends Component {
   componentDidMount() {
@@ -34,16 +34,22 @@ class Housemates extends Component {
                 <td>{task.endDate}</td>
                 <td>{task.housemate.name}</td>
                 <td>
-                  <input
-                    type="submit"
-                    value="Edit"
-                    className="btn btn-primary"
-                  />&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input
-                    type="submit"
-                    value="Delete"
-                    className="btn btn-danger"
-                  />
+                <form onSubmit={this.onEditTask}>
+                    <input type="hidden" ref={(input) => this.getId = input} value={task.id} />
+                    <input
+                      type="button"
+                      value="Edit"
+                      className="btn btn-primary"
+                      onClick={() => this.props.onEditTask(task.id)}
+                    />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input
+                      type="button"
+                      value="Delete"
+                      className="btn btn-danger"
+                      onClick={() => this.props.onDeleteTask(task.id)}
+                    />
+                  </form>
                 </td>
               </tr>
             ))}
@@ -61,7 +67,9 @@ const mapStatetoProps = (state, props) => {
 };
 
 const mapActionsToProps = {
-  onGetTasks: getTasks
+  onGetTasks: getTasks,
+  onEditTask: editTask,
+  onDeleteTask: deleteTask
 };
 
 export default connect(mapStatetoProps, mapActionsToProps)(Housemates);

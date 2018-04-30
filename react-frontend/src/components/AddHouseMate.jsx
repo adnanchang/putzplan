@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {createHousemate} from "../actions/housemateActions";
+import { createHousemate } from "../actions/housemateActions";
 
 class AddHouseMate extends Component {
   constructor(props) {
@@ -14,8 +14,8 @@ class AddHouseMate extends Component {
     const name = this.getName.value;
     const data = {
       name: name
-    }
-    this.getName.value = '';
+    };
+    this.getName.value = "";
     this.props.handleSubmit(data);
   }
 
@@ -26,7 +26,12 @@ class AddHouseMate extends Component {
           <legend>Add Housemate</legend>
           <fieldset className="form-group">
             <label htmlFor="Name">Name</label>
-            <input type="text" placeholder="Enter Housemate Name" ref={(input) => this.getName = input} className="form-control"/>
+            <input
+              type="text"
+              placeholder="Enter Housemate Name"
+              ref={input => (this.getName = input)}
+              className="form-control"
+            />
           </fieldset>
           <input type="submit" value="Add" className="btn btn-primary" />
         </form>
@@ -36,7 +41,7 @@ class AddHouseMate extends Component {
 }
 
 const mapStatetoProps = (state, props) => {
-  return {}
+  return {};
 };
 
 const mapActionsToProps = {

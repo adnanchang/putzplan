@@ -2,6 +2,7 @@ export const CREATE_TASK = "CREATE_TASK";
 export const GET_TASKS = "GET_TASKS";
 export const EDIT_TASK = "EDIT_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";
+export const DELETE_TASK = "DELETE_TASK";
 
 export function createTask(formData) {
     return dispatch => {
@@ -34,12 +35,15 @@ export function getTasks() {
 }
 
 export function editTask(task){
-    //send task to the form
+    return {
+        type: EDIT_TASK,
+        payload: task
+    }
 }
 
 export function updateTask(formData) {
     return dispatch => {
-        return fetch("/task/update/" + formData.id, {
+        return fetch("/task/update/", {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -50,6 +54,19 @@ export function updateTask(formData) {
         .then(task => dispatch({
             type: UPDATE_TASK,
             payload: task
+        }));
+    }
+}
+
+export function deleteTask(formData) {
+    return dispatch => {
+        return fetch("/task/delete/" + formData, {
+            method: 'POST'
+        })
+        .then(res => res.ok)
+        .then(task => dispatch({
+            type: DELETE_TASK,
+            payload: formData
         }));
     }
 }
