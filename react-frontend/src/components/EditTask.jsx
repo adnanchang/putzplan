@@ -8,6 +8,7 @@ class EditTask extends Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getToday = this.getToday.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +22,11 @@ class EditTask extends Component {
     }
   }
 
+  getToday() {
+    var today = new Date();
+    return today;
+  }
+
   onGetHousemates() {
     this.props.onGetHousemates();
   }
@@ -28,12 +34,12 @@ class EditTask extends Component {
   handleSubmit(e) {
     e.preventDefault();
     //prepare JSON
-    Date.prototype.addDays = function(days) {
+    Date.prototype.addDays = function (days) {
       var dat = new Date(this.valueOf());
       dat.setDate(dat.getDate() + days);
       return dat;
     };
-    var startDate = new Date();
+    var startDate = new Date(this.getDate.value);
     var endDate = startDate.addDays(7);
 
     const task = {
@@ -76,12 +82,14 @@ class EditTask extends Component {
                   </option>
                 ))}
               </select>
+              <label htmlFor="Date">Start Date</label>
+              <input type="date" className="form-control" ref={input => (this.getDate = input)} min={this.getToday} />
             </fieldset>
             <input type="submit" value="Edit" className="btn btn-primary" />
           </form>
         ) : (
-          <legend>No Task to Edit </legend>
-        )}
+            <legend>No Task to Edit </legend>
+          )}
       </div>
     );
   }
@@ -91,7 +99,7 @@ const mapStatetoProps = (state, props) => {
   return {
     housemates: state.housemates.housemates,
     task: state.tasks.taskToEdit,
-    editing : state.tasks.editing
+    editing: state.tasks.editing
   };
 };
 
